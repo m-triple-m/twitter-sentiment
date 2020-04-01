@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+
+    <style>
+        
+    </style>
+{% endblock %}
+{% block body %}
+
+<div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <p class="display-4 text-center">Tweets Report</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Twitter Handle</th>
+                        <th>Name</th>
+                        <th>Tweet</th>
+                        <th>Date of Tweet</th>
+                        <th>Analyse Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in data %}
+                    <tr>
+                        <td>{{record.id}}</td>
+                        <td>{{record.handle}}</td>
+                        <td>{{record.name}}</td>
+                        <td>{{record.tweet}}</td>
+                        <td>{{record.tweet_date}}</td>
+                        <td>{{record.analyse_date}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+    <script>
+        
+    </script>
+{% endblock %}
+

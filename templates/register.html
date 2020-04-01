@@ -1,0 +1,99 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+<style>
+    body{
+        background-image: url('/static/images/bg.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+{% endblock %} 
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 mt-4">
+            <div class="card shadow-sm">
+                 <div class="card-body">
+                    <form method="post" id ="registerform">
+                        <div class="form-group">
+                            <label for = "username" class="text-danger"><i class = "fa fa-user" aria-hidden="true"></i> Username</label>
+                            <input type="text"
+                            class = "form-control" name = "username" id="username" aria-describedby="usernamehelp" placeholder="username">
+                            <small id = "usernamehelp" class = "form-text text-muted">Please fill the username. Minimum 10 characters no special characters</small>
+                        </div>
+                        <div class = "form-group">
+                            <label  for = "email"><i class="fa fa-envelope" aria-hidden="true"></i>Email Address</label>
+                            <input type = "email" class="form-control" name = "email" id="email" aria-describedby="emailHelp" placeholder="qwerty@xmail.com">
+                            <small id = "emailHelp" class="form-text text-muted">Enter A Valid Email,We Will Send Verification Mail To You, Only Then You can Access The Web App</small>
+
+                        </div>
+                        <div class = "form-group">
+                            <label  for = "twiiterId"><i class="fa fa-envelope" aria-hidden="true"></i>Twitter id</label>
+                            <input type = "txt" class="form-control" name = "twiiterid" id="twiiterId" aria-describedby="emailHelp" placeholder="@twitterid">
+                            <small id = "emailHelp" class="form-text text-muted"></small>
+
+                        </div>
+                        <div class="form-group">
+                            <label for = "Password" class="text-danger"><i class = "fa fa-key" aria-hidden="true"></i> Password</label>
+                            <input type="password"
+                            class = "form-control" name = "password" id="password" aria-describedby="passwordhelp" placeholder="qwerty@1">
+                            <small id = "passwordhelp" class = "form-text text-muted">Please fill the password. Minimum 8 characters including special characters</small>
+                        </div>
+                        <div class="form-group">
+                            <label for = "confirmpassword" class="text-danger"><i class = "fa fa-key" aria-hidden="true"></i> Confirm Password</label>
+                            <input type="password"
+                            class = "form-control" name = "confirmpassword" id="confirmpassword" aria-describedby="confirmpasswordhelp" placeholder="qwerty@1">
+                            <small id = "usernamehelp" class = "form-text text-muted">Please fill the password again</small>
+                        </div>
+                        <button class = "btn btn-danger">
+                            Register
+                        </button> 
+                        <div id = "statusout"></div>   
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    $(function () {
+      $('#registerform').submit(function(event){
+          event.preventDefault();
+          event.stopPropagation();
+          $('button').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Processing...')
+          //get form values as variables
+          let uname=$('#username').val()
+          let email=$('#email').val()
+          let twit=$('#twiiterId').val()
+          let pass=$('#password').val()       
+          let cpass=$('#confirmpassword').val()
+          $.ajax({
+              type:"POST",
+              url:"/process_data",
+              data:{
+                  "username": uname,
+                  "email": email,
+                  "twitterId":twit,
+                  "password":pass,
+                  "cpassword":cpass,
+                },
+              success: function(response) {
+                  $('button').html(response.status)
+                  window.location.replace('/login')
+              },
+              error: function(response){
+                  $('button').html(response.status)
+              }  
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+
+    <style>
+        
+    </style>
+{% endblock %}
+{% block body %}
+
+<div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <p class="display-4 text-center">Tweet Sentiment Report</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Average Subjectivity</th>
+                        <th>Positive Sentiment</th>
+                        <th>Negative Sentiment</th>
+                        <th>Neutral Sentiment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in data %}
+                    <tr>
+                        <td>{{record.id}}</td>
+                        <td>{{record.name}}</td>
+                        <td>{{record.date}}</td>
+                        <td>{{'%0.2f' % record.subjectivity|float}}</td>
+                        <td>{{record.positivity}} %</td>
+                        <td>{{record.negativity}} %</td>
+                        <td>{{record.neutral}} %</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+    <script>
+        
+    </script>
+{% endblock %}
+

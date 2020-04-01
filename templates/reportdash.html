@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <style>
+        
+    </style>
+{% endblock %}
+{% block body %}
+
+<div class="container mt-5">
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <p class="h5">Tweets Report</p>
+                    <p class="text-muted">Report for fetched tweets</p>
+                    <a href= "/showreport" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <p class="h5">Sentiment Analysis Report</p>
+                    <p class="text-muted">Report for sentiment analysis on various tweet searches</p>
+                    <a href= "/showanareport" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <p class="h5">File Scan Report</p>
+                    <p class="text-muted">Report for junk file scans</p>
+                    <a href= "/junkreport" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+    <script>
+        
+    </script>
+{% endblock %}
+

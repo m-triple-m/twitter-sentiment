@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <p class="display-4 text-center" style="background-color: rgb(214, 214, 214);padding: 10px;" id="title">
+         
+    </p>
+    <hr>
+</div>
+<div class="container mt-5">
+
+    <div class="row">
+        <a href= "/result" class="btn btn-success btn-block">Analyse Tweets</a>
+        <a href="/wordcloud" class="btn btn-success btn-block">Generate Word Cloud</a>
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>S. No.</th>
+                        <th>Tweet text</th>
+                    </tr>
+                </thead>
+                <tbody id="tweetlist">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+    $(document).ready(() => {
+        let tweetdata = JSON.parse(sessionStorage.getItem('data'))
+        
+        $('#title').html(`Last 20 tweets of ${tweetdata.name}`);
+        tweetdata.data.forEach( (element, index) => {
+                        $('#tweetlist').append(`<tr><td>${index}</td>  <td>${element}</td></tr>`)
+                    })
+    })
+</script>
+
+{% endblock %}
