@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, User, Tweet, SentimentReport
 import database_setup
-from twitter_api import getTweets
+from twitter_api import TweetScraper
 from textblob import TextBlob
 from datetime import date
 from wordcloud import WordCloud
@@ -18,6 +18,7 @@ app.secret_key="somesupersecretkey"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///polite.db'
 db = SQLAlchemy(app)
+tscraper = TweetScraper()
 
 import sql_alchemy_setup as Database
 #Connect to Database and create database session
@@ -79,7 +80,11 @@ def fetch_tweets():
     
     handle = request.args.get("key")
     print(handle)
-    tweets = getTweets(handle)
+    if handle.startswith('@'):
+        tweets = tscraper.getTweets(handle)
+    elif handle.startswith('#'):
+        tweets = tscraper.getTagTweets(handle)
+
     tweet_text = clean_tweets(tweets)
 
     addTweets(handle, tweets)
