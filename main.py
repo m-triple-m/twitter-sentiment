@@ -79,11 +79,15 @@ def show():
 def fetch_tweets():
     
     handle = request.args.get("key")
+    maxtweets = request.args.get("max")
     print(handle)
+
     if handle.startswith('@'):
         tweets = tscraper.getTweets(handle)
     elif handle.startswith('#'):
-        tweets = tscraper.getTagTweets(handle)
+        tweets = tscraper.getTagTweets(handle, int(maxtweets))
+    else:
+        return jsonify({'data' : [], 'name' : ''})
 
     tweet_text = clean_tweets(tweets)
 
@@ -219,6 +223,10 @@ def tweetAnalysisReport():
         return redirect('/login')
     data = Database.SentimentReport.query.all()
     return render_template('sentimentreport.html', data = data)
+
+@app.route('/searchtag')
+def tagSearch():
+    return render_template('searchtag.html')
 
 if __name__ == '__main__':
     app.run(debug=True) #change to 'False' while submitting

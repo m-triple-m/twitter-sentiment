@@ -44,7 +44,7 @@
         
         $('#title').html(`Last 20 tweets of ${tweetdata.name}`);
         tweetdata.data.forEach( (element, index) => {
-                        $('#tweetlist').append(`<tr><td>${index}</td>  <td>${element}</td></tr>`)
+                        $('#tweetlist').append(`<tr><td>${index+1}</td>  <td>${element}</td></tr>`)
                     })
     })
 </script>

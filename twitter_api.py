@@ -32,10 +32,10 @@ class TweetScraper:
             # print(tweet)
             # print(f"{tweet.user.name} said: {tweet.text}")
 
-    def getTagTweets(self, tag):
-        tweets = tweepy.Cursor(self.api.search, q=tag, rpp=100).items(20)
+    def getTagTweets(self, tag, max):
+        tweets = tweepy.Cursor(self.api.search, q=tag, rpp=100).items(max)
         return list(tweets)
         
 if __name__ == "__main__":
     twet = TweetScraper()
-    twet.getTagTweets('#ShameOnKaKa')
+    twet.getTagTweets('#python', 10)

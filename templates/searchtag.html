@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block css %}{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5">
+    <p class="h1 text-center text-light">Ecommerce Website Multipage Scrapper</p>
+    
+    <div class="card">
+        <div class="card-body">
+            <p class="display-4">Search Product here</p>
+            <hr>
+            <div class="row">
+                <div class="col-md-8">
+                    <label>Hashtag</label>
+                    <input class="form-control" name="product" id="tag">
+                </div>
+
+                <div class="col-md-4">
+                    <label>No. of tweets</label>
+                    <input class="form-control" name="max" id="max">
+                </div>
+            </div>
+            <button class="btn btn-outline-primary mt-5 btn-lg" id="fetch">Start Scraping</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script>
+    $(document).ready(() => {
+      $("#fetch").click(() => {
+        let value = $("#tag").val()
+        let max = $("#max").val()
+        fetchTweets(value, max);
+      })
+
+      fetchTweets = (handle, max) => {
+              $.ajax({url : '/fetchtweets', data : {key : handle, max : max}, method : "get", complete : (data) => {
+                  console.log(data);
+                  sessionStorage.setItem('data', JSON.stringify(data.responseJSON));
+                  window.location.replace('/showtweets')
+              },
+              beforeSend: () => {
+                  Swal.fire({
+                      title: 'Fetching Tweets!',
+                      html: 'Please wait...',
+                      timerProgressBar: true,
+                      onBeforeOpen: (
+                          
+                      ) => {
+                          Swal.showLoading();
+                      },
+                      })
+              },
+              });
+          }
+    });
+  </script>
+{% endblock %}
