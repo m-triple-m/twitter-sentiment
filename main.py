@@ -79,7 +79,7 @@ def show():
 def fetch_tweets():
     
     handle = request.args.get("key")
-    maxtweets = request.args.get("max")
+    maxtweets = request.args.get("max") 
     print(handle)
 
     if handle.startswith('@'):
@@ -230,3 +230,8 @@ def tagSearch():
 
 if __name__ == '__main__':
     app.run(debug=True) #change to 'False' while submitting
+
+
+favfoods = ['pizza', 'burger', 'momos', 'ice-cream']
+foodlength = [len(f) for f in favfoods]
+print(foodlength)
