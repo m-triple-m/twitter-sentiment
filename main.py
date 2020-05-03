@@ -63,10 +63,11 @@ def login():
         form = request.form
         if form.get('email'):
             user = Database.User.query.filter_by(email=form.get('email')).first()
-            print(user.email, user.password, form)
-            if form.get('password') == user.password:
-                fl_session['user'] = user.email
-                return redirect('/')
+            if user:
+                print(user.email, user.password, form)
+                if form.get('password') == user.password:
+                    fl_session['user'] = user.email
+                    return redirect('/')
     return render_template("login.html")
 
 @app.route("/showtweets", methods=['GET'])
@@ -230,8 +231,3 @@ def tagSearch():
 
 if __name__ == '__main__':
     app.run(debug=True) #change to 'False' while submitting
-
-
-favfoods = ['pizza', 'burger', 'momos', 'ice-cream']
-foodlength = [len(f) for f in favfoods]
-print(foodlength)
